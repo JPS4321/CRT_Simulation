@@ -148,6 +148,13 @@ def actualizar_vars():
     persistencia = persistencia_slider.get()
     root.after(50, actualizar_vars)
 
+def salir():
+    """Termina la simulación y cierra todo"""
+    global running
+    running = False
+    root.destroy()
+
+
 # -----------------------------
 # CREAR INTERFAZ TKINTER
 # -----------------------------
@@ -158,6 +165,7 @@ modo_label = tk.Label(root, text="Modo: Manual", font=("Arial", 12))
 modo_label.pack()
 
 tk.Button(root, text="Cambiar modo (Manual/Sinusoidal)", command=toggle_modo).pack()
+tk.Button(root, text="Salir", command=salir, bg="red", fg="white").pack(pady=10)
 
 # Siempre visible
 aceleracion_slider = tk.Scale(root, from_=100, to=1000, orient="horizontal", label="Voltaje Aceleración (Brillo)")
@@ -188,8 +196,8 @@ fasey_slider = tk.Scale(root, from_=0, to=360, orient="horizontal", label="Fase 
 fasey_slider.set(0)
 fasey_slider.pack()
 
-persistencia_slider = tk.Scale(root, from_=10, to=500, orient="horizontal", label="Persistencia")
-persistencia_slider.set(150)
+persistencia_slider = tk.Scale(root, from_=10, to=120, orient="horizontal", label="Persistencia")
+persistencia_slider.set(30)
 persistencia_slider.pack()
 
 # -----------------------------
