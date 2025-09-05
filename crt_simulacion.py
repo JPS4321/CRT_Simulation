@@ -34,11 +34,11 @@ FONT_S   = pygame.font.SysFont("consolas", 14)
 FONT_M   = pygame.font.SysFont("consolas", 18, bold=True)
 
 # =========================
-# Layout de la “carcasa”
+# Layout 
 # =========================
 OUTER = pygame.Rect(10, 10, WIDTH-20, HEIGHT-20)
 
-# Pantalla verde más baja para dar aire al panel inferior
+# Pantalla verde
 CRT_RECT  = pygame.Rect(420, 40, 700, 410)
 
 # Diagrama a la izquierda, alineado verticalmente con la pantalla
@@ -72,7 +72,7 @@ trayectoria: List[Tuple[int,int]] = []
 t = 0.0
 dt = 1.0 / FPS
 
-# Ajustes de fase por relación y flips para que se vean “como en laboratorio”
+# Ajustes de fase por relación
 PRESET_OFFSETS = {
     "1:1": (0,   0),
     "1:2": (0,  90),
@@ -114,7 +114,7 @@ def to_rect(x: float, y: float, rect: pygame.Rect) -> Tuple[int,int]:
 def clamp(v, a, b): 
     return max(a, min(b, v))
 
-# Perillas: parámetros de sensibilidad (más tranquilas de manejar)
+# Perillas: parámetros de sensibilidad
 ANGLE_MIN = -140
 ANGLE_MAX =  140
 DEAD_ZONE = 6
@@ -159,7 +159,7 @@ class Knob:
         self.drag_linear = False
 
     def handle_event(self, e):
-        # Click izquierdo: giro o modo fino (si mantienes SHIFT)
+        # Click izquierdo: giro o modo fino (si se mantiene SHIFT)
         if e.type == pygame.MOUSEBUTTONDOWN and e.button == 1 and self.rect.collidepoint(e.pos):
             if pygame.key.get_mods() & pygame.KMOD_SHIFT:
                 self.drag_linear = True
@@ -342,23 +342,25 @@ knobs: List[Knob] = []
 
 # Manecillas (izquierda)
 RADIUS = 18
-gapy   = 50
+gapy   = 70
 gapx   = 86
-ky0 = LEFT_ZONE.y + 40
+ky0 = LEFT_ZONE.y + 60
 kx0 = LEFT_ZONE.x + 70
 
-knob_acc = Knob(kx0,           ky0,           RADIUS, 100, 1000, 500, "Aceleración", step=5)
-knob_pers= Knob(kx0+gapx,      ky0,           RADIUS, 10,  300,  150, "Persistencia", step=1)
-knob_vx  = Knob(kx0,           ky0+gapy,      RADIUS, -100, 100, 0, "Volt X", step=1, default=0)
-knob_vy  = Knob(kx0+gapx,      ky0+gapy,      RADIUS, -100, 100, 0, "Volt Y", step=1, default=0)
-kxs = LEFT_ZONE.x + 50
-kys = ky0 + 2*gapy + 4
-knob_fx  = Knob(kxs,           kys,           RADIUS, 1, 5, 1, "fX Hz", step=1)
-knob_phix= Knob(kxs+gapx,      kys,           RADIUS, 0, 360, 0, "faseX °", step=5)
-knob_fy  = Knob(kxs+2*gapx,    kys,           RADIUS, 1, 5, 1, "fY Hz", step=1)
-knob_phiy= Knob(kxs+3*gapx,    kys,           RADIUS, 0, 360, 0, "faseY °", step=5)
+# ---- Primera fila ----
+knob_acc  = Knob(kx0,          ky0, RADIUS, 100, 1000, 500, "Aceleración", step=5)
+knob_pers = Knob(kx0+gapx,     ky0, RADIUS, 10,  300,  150, "Persistencia", step=1)
+knob_fx   = Knob(kx0+2*gapx,   ky0, RADIUS, 1, 3, 1, "fX Hz", step=1)
+knob_fy   = Knob(kx0+3*gapx,   ky0, RADIUS, 1, 3, 1, "fY Hz", step=1)
 
-knobs.extend([knob_acc, knob_pers, knob_vx, knob_vy, knob_fx, knob_phix, knob_fy, knob_phiy])
+# ---- Segunda fila ----
+knob_vx   = Knob(kx0,          ky0+gapy, RADIUS, -100, 100, 0, "Volt X", step=1, default=0)
+knob_vy   = Knob(kx0+gapx,     ky0+gapy, RADIUS, -100, 100, 0, "Volt Y", step=1, default=0)
+knob_phix = Knob(kx0+2*gapx,   ky0+gapy, RADIUS, 0, 360, 0, "faseX °", step=5)
+knob_phiy = Knob(kx0+3*gapx,   ky0+gapy, RADIUS, 0, 360, 0, "faseY °", step=5)
+
+knobs.extend([knob_acc, knob_pers, knob_fx, knob_fy, knob_vx, knob_vy, knob_phix, knob_phiy])
+
 
 # Botones del centro
 buttons: List[Button] = []
@@ -372,7 +374,7 @@ btn_apagar = Button(pygame.Rect(CENTER_ZONE.centerx-54, CENTER_ZONE.y+86, 108, 3
                     "Apagar", lambda: pygame.event.post(pygame.event.Event(pygame.QUIT)))
 buttons.extend([btn_modo, btn_apagar])
 
-# Presets (derecha) en grilla 5x4 ajustada al espacio
+# Presets 
 preset_buttons: List[Button] = []
 cols, rows = 5, 4
 gap_x, gap_y = 6, 6
@@ -472,9 +474,17 @@ while running:
     screen.blit(FONT_S.render("PRESETS",    True, TEXT), (RIGHT_ZONE.x+10, RIGHT_ZONE.y+8))
 
     # Subtítulos dentro de manecillas
-    screen.blit(FONT_XS.render("GENERAL", True, TEXT), (LEFT_ZONE.x+10, ky0-22))
-    screen.blit(FONT_XS.render("MANUAL (X/Y)", True, TEXT), (LEFT_ZONE.x+10, ky0+gapy-22))
-    screen.blit(FONT_XS.render("SINUSOIDAL", True, TEXT), (LEFT_ZONE.x+10, kys-22))
+    label_y = ky0 - 28  # misma altura para todos
+    screen.blit(FONT_XS.render("GENERAL", True, TEXT), (LEFT_ZONE.x+10, ky0-28))
+
+    # Centrado entre Aceleración y Persistencia
+    manual_x = kx0 + gapx//2 - 20
+    screen.blit(FONT_XS.render("MANUAL (X/Y)", True, TEXT), (manual_x, label_y))
+
+    # Arriba de fX y fY
+    sinus_x = kx0 + 2*gapx + gapx//2 - 30
+    screen.blit(FONT_XS.render("SINUSOIDAL", True, TEXT), (sinus_x, label_y))
+
 
     # Controles en pantalla
     for k in knobs:   k.draw(screen)

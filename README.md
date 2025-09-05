@@ -5,7 +5,7 @@ Incluye **manecillas (knobs)** para controlar parámetros, un **modo Manual** y 
 
 ---
 
-## 🧩 ¿Qué es?
+##  ¿Qué es?
 
 - **Pantalla CRT** con persistencia tipo fósforo y rejilla.
 - **Diagrama lateral** del tubo (el haz se mueve en **Y** como en la realidad).
@@ -19,7 +19,7 @@ Todo está hecho con **Pygame** (sin dependencias raras).
 
 ---
 
-## 🚀 Requisitos
+##  Requisitos
 
 - **Python 3.8+** (recomendado 3.10 o 3.11).
 - **Pygame**:
@@ -33,7 +33,7 @@ pip install pygame
 
 ---
 
-## ▶️ Cómo ejecutar
+##  Cómo ejecutar
 
 Clona/descarga el proyecto y ejecuta:
 
@@ -56,7 +56,7 @@ python crt_simulacion.py
 
 ---
 
-## 🎛️ Controles
+##  Controles
 
 **Manecillas (knobs)**  
 - **Click izquierdo + arrastrar en círculo:** giro normal (con topes; no “salta” de un extremo a otro).
@@ -74,7 +74,7 @@ python crt_simulacion.py
 
 ---
 
-## 🧪 Modos de operación
+##  Modos de operación
 
 - **Manual:** controlas **Volt X** y **Volt Y** (rango -100..100).
 - **Sinusoidal (Lissajous):** controlas **fx**, **fy**, **faseX**, **faseY**.
@@ -82,7 +82,7 @@ python crt_simulacion.py
 
 ---
 
-## 📦 Presets incluidos
+##  Presets incluidos
 
 Relaciones: **1:1**, **1:2**, **1:3**, **2:3**  
 Desfases: **0°**, **45°**, **90°**, **135°**, **180°**
@@ -91,7 +91,7 @@ Desfases: **0°**, **45°**, **90°**, **135°**, **180°**
 
 ---
 
-## ⚙️ Rendimiento y trucos
+##  Rendimiento y trucos
 
 - Si notas la traza muy “pesada”, baja **Persistencia**.
 - Para más brillo del haz, sube **Aceleración**.
@@ -100,7 +100,7 @@ Desfases: **0°**, **45°**, **90°**, **135°**, **180°**
 
 ---
 
-## 🗂️ Estructura simple
+##  Estructura simple
 
 - `crt_simulacion.py` — todo el proyecto:
   - Layout (carcasa, CRT, diagrama, panel).
@@ -111,7 +111,7 @@ Desfases: **0°**, **45°**, **90°**, **135°**, **180°**
 
 ---
 
-## 🔧 Personalización rápida
+##  Personalización rápida
 
 - Colores: ajusta la paleta al inicio (`PHOS_BG`, `PHOS_GRID`, `PHOS_TRACE`).
 - Sensibilidad de perillas: mira `ANGLE_MIN`, `ANGLE_MAX`, `SENS_DRAG`, `SENS_WHEEL`, `SENS_WHEEL_FINE`.
@@ -119,7 +119,7 @@ Desfases: **0°**, **45°**, **90°**, **135°**, **180°**
 
 ---
 
-## ❓Problemas comunes
+## Problemas comunes
 
 - **La ventana no cabe en mi pantalla:** baja `WIDTH`/`HEIGHT` y/o la altura de `CRT_RECT`.
 - **No puedo instalar pygame:** actualiza `pip` (`python -m pip install -U pip`) y vuelve a intentar.
